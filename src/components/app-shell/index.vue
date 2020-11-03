@@ -9,7 +9,7 @@
       dark
     >
       <v-toolbar-title>
-        RA2CE
+        RA2CE-DR
       </v-toolbar-title>
       <v-spacer/>
     </v-app-bar>

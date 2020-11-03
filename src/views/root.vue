@@ -40,7 +40,7 @@
         @click="calculatePrioritiesMap"
         color="primary"
       >
-        RA2CE! 🏎
+        RA2CE!
       </v-btn>
     </div>
 
