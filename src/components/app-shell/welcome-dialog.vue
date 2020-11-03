@@ -19,7 +19,7 @@
         >
       </div>
       <v-card-text>
-        RA2CE is a webgis tool that allows visualisation of priorities of societal/operator costs on infrastructure for various types of hazard for the Duch infrastructuren network.
+        RA2CE-DR is a webgis tool that allows visualisation of priorities of societal/operator costs on infrastructure for various types of hazard for the Duch infrastructuren network.
       </v-card-text>
       <v-card-text class="text--primary">
         The website is currently under maintenance. As a consequence, the presented prioritization may not be correct and should be checked carefully. 
