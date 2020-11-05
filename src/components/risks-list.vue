@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="pb-4">
-      Risks
+      Riesgos
     </h2>
     <ul
       v-if="risks.length"

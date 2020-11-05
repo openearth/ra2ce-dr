@@ -6,7 +6,7 @@
         :items="hazardList"
         item-value="layer_name"
         item-text="name"
-        label="Hazard"
+        label="Amenaza"
         :disabled="!hazardList.length"
       ></v-select>
 

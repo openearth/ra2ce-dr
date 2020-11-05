@@ -5,7 +5,7 @@
   >
     <header class="d-flex">
       <h2 class="pb-4">
-        Priorities matrix
+        Matriz de priorizaciones 
       </h2>
       <v-spacer />
       <v-btn @click="onResetClick">Reset</v-btn>
@@ -17,7 +17,8 @@
             scope="rowgroup"
             rowspan="6"
           >
-            Societal losses classes
+            <div>Costos para la sociedad</div>
+            <div>(Pérdidas esperadas)</div>
           </th>
         </tr>
         <tr class="priority-matrix__row">
@@ -25,7 +26,7 @@
             colspan="6"
             scope="row"
           >
-            Operator costs classes
+            Costos para el operador (Daños esperados)
           </th>
         </tr>
         <tr class="priority-matrix__row">
@@ -190,8 +191,8 @@ export default {
     position: absolute;
     transform: translateY(-50%) rotate(-90deg);
     transform-origin: left bottom;
-    top: 89%;
-    left: 1rem
+    top: 86%;
+    left: 2.2rem
   }
 
   .priority-matrix__value--very-low {
