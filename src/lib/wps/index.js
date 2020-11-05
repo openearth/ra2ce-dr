@@ -11,8 +11,6 @@ export default function({ functionId, requestData, polygon, roadsIdentifier, ...
     headers: {'Content-Type': 'application/xml'}
   })
   .then(({ data }) => {
-    console.log(data);
-    console.log(typeof data === "object");
     return typeof data === 'object'
       ? data
       : JSON.parse(data);
