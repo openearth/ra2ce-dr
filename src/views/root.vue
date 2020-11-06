@@ -116,12 +116,12 @@ export default {
       // 3. Add new layers for operator and societal costs
       [
         {
-          id: `${ hazard }_herstelkosten`,
-          layer: `ra2ce:${ hazard }_herstelkosten`,
+          id: `${ hazard }_repair`,
+          layer: `ra2ce:${ hazard }_repair`,
         },
         {
-          id: `${ hazard }_stremmingskosten`,
-          layer: `ra2ce:${ hazard }_stremmingskosten`,
+          id: `${ hazard }_social`,
+          layer: `ra2ce:${ hazard }_social`,
         }
       ]
       .map(buildWmsLayer)
