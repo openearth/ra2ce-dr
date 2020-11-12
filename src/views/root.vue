@@ -109,6 +109,8 @@ export default {
     },
 
     selectedHazard(hazard) {
+      const map = this.$root.map;
+
       // 1. Remove all existing layers
       this.wmsLayers.forEach(({ id }) => {
         this.$store.commit('mapbox/REMOVE_WMS_LAYER', id);
@@ -138,6 +140,7 @@ export default {
       })
       .forEach(layer => {
         this.$store.commit('mapbox/ADD_WMS_LAYER', layer);
+        this.$store.commit('mapbox/UPDATE_LAYER_VISIBILITY', { id: layer.id, map });
       });
 
       // 4. Start building priorities layer
@@ -178,6 +181,7 @@ export default {
     },
 
     calculatePrioritiesMap() {
+      const map = this.$root.map;
       this.getPrioritiesMessage = 'Calculating the priorities layer';
       this.getPrioritiesError = null;
 
