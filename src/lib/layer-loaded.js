@@ -1,4 +1,3 @@
-
 export default async function layerLoaded(id, map) {
   if (!map.getLayer(id)) {
     // we need to wait for when a layer is loaded, hence the Promise
