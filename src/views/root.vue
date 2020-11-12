@@ -7,7 +7,7 @@
         item-value="layer_name"
         item-text="name"
         label="Amenaza"
-        :disabled="!hazardList.length"
+        :disabled="!hazardList.length || loadingCapabilities"
       ></v-select>
 
       <risks-list
@@ -52,7 +52,9 @@
 </template>
 
 <script>
+import axios from 'axios';
 import debounce from 'lodash.debounce';
+import parser from 'fast-xml-parser';
 import wps from '@/lib/wps';
 import buildWmsLayer from '@/lib/build-wms-layer';
 import RisksList from '@/components/risks-list';
@@ -69,7 +71,9 @@ export default {
     selectedHazard: '',
     liveUpdate: false,
     getPrioritiesMessage: null,
-    getPrioritiesError: null
+    getPrioritiesError: null,
+    loadingCapabilities: true,
+    layersInfo: []
   }),
 
   computed: {
@@ -125,6 +129,13 @@ export default {
         }
       ]
       .map(buildWmsLayer)
+      .map(layer => {
+        const layerInfo = this.layersInfo.find(({ Name }) => Name === layer.layer);
+
+        layer.title = layerInfo.Title;
+        
+        return layer;
+      })
       .forEach(layer => {
         this.$store.commit('mapbox/ADD_WMS_LAYER', layer);
       });
@@ -134,7 +145,21 @@ export default {
     }
   },
 
+  mounted() {
+    this.getCapabilities();
+  },
+
   methods: {
+    async getCapabilities() {
+      this.loading = true;
+
+      const { data } = await axios.get(`${process.env.VUE_APP_WMS_URL}?service=wms&request=GetCapabilities&namespace=ra2ce`);
+      const jsonData = parser.parse(data);
+
+      this.layersInfo = jsonData.WMS_Capabilities.Capability.Layer.Layer;
+      this.loadingCapabilities = false;
+    },
+
     onVisibilityChange(id) {
       const map = this.$root.map;
       this.$store.commit('mapbox/UPDATE_LAYER_VISIBILITY', { id, map });
@@ -167,10 +192,13 @@ export default {
           this.getPrioritiesMessage = null;
 
           const prioritiesLayer = buildWmsLayer({
-            id: `${ this.selectedHazard }_prioriteiten`,
+            id: `ra2ce:${ this.selectedHazard }_priority`,
             layer: layerName,
             style
           });
+          const layerInfo = this.layersInfo.find(({ Name }) => Name === prioritiesLayer.id);
+
+          prioritiesLayer.title = layerInfo.Title;
 
           this.$store.commit('mapbox/REMOVE_WMS_LAYER', prioritiesLayer.id);
           this.$store.commit('mapbox/ADD_WMS_LAYER', prioritiesLayer);

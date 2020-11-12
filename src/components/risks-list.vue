@@ -19,7 +19,7 @@
           <v-icon>{{ risk.layer === activeLegendLayer ? 'mdi-card-bulleted' : 'mdi-card-bulleted-off' }}</v-icon>
         </v-btn>
         <span class="risks-list__item-title">
-          {{ formatId2Title(risk.id) }}
+          {{ risk.title }}
         </span>
       </li>
     </ul>
@@ -40,12 +40,6 @@ export default {
       required: true
     }
   },
-
-  methods: {
-    formatId2Title(id) {
-      return id.split('_').join(' ');
-    }
-  }
 };
 </script>
 
