@@ -1,3 +1,5 @@
+import layerLoaded from "@/lib/layer-loaded";
+
 export default {
   namespaced: true,
 
@@ -43,8 +45,11 @@ export default {
     UPDATE_LAYER_VISIBILITY(state, { id, map }) {
       const layerProxy = state.layerVisibilityProxies.find(proxy => proxy.id === id);
       const opacityToSet = layerProxy.visible ? 0 : 1;
-      map.setPaintProperty(id, 'raster-opacity', opacityToSet);
-      layerProxy.visible = !layerProxy.visible;
+      layerLoaded(id, map)
+        .then(() => {
+          map.setPaintProperty(id, 'raster-opacity', opacityToSet);
+          layerProxy.visible = !layerProxy.visible;
+        });
     },
     SET_LEGEND_LAYER(state, layer) {
       state.legendLayer = layer;
